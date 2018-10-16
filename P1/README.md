@@ -96,8 +96,8 @@ excluding those boats that have never been reserved (list the id and the name).
 
 
 ##Part 2
-* [p2](../blob/master/src/p2.py)
-* [test](../blob/master/src/test_p2.py)
+* [p2](src/p2.py)
+* [test](src/test_p2.py)
 
 
 ##Part 3
@@ -106,8 +106,8 @@ excluding those boats that have never been reserved (list the id and the name).
   The schema of the new table looks like this:
 ![alt text][schema_3]
   
-  * [p3](../blob/master/src/p3.py)
-  * [test](../blob/master/src/test_p3.py)
+  * [p3](src/p3.py)
+  * [test](src/test_p3.py)
 
 * bi weekly payment report
 
