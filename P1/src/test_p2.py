@@ -67,6 +67,11 @@ def test_query7():
     assert query7() == 35.0
 
 
+if  __name__ == "__main__":
+    test_query5();
+    test_query6();
+    test_query7();
+
 
 
 

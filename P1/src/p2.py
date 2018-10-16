@@ -31,7 +31,7 @@ if __name__ == '__main__':
     metadata.create_all(engine)
     #insert with raw SQL lines
     with engine.connect() as conn:
-        with open('./input.txt', 'r') as lines:
+        with open('../input.txt', 'r') as lines:
             for line in lines:
                 line = line.strip('\n')
                 conn.execute(line)
