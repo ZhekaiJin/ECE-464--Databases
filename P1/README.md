@@ -8,7 +8,7 @@ Problem Set 1 Report
 ##Description
 Experiment with SQL and Sqlalchemy a little bit.
 
-##Part 1
+## Part 1
 * Query 1 
 
  Select, for each boat, the sailor who made the highest number of reservations for that boat.
@@ -95,12 +95,14 @@ excluding those boats that have never been reserved (list the id and the name).
 ![alt text][query7]
 
 
-##Part 2
+## Part 2
+
 * [p2](src/p2.py)
 * [test](src/test_p2.py)
 
 
-##Part 3
+## Part 3
+
   Expanding from the first primitive database, in order to track the revenue and therefore profits, I add the column cost[for the sailors] in the reserves table to track the profits by day or by any specfic period. 
   Also, I added the empolyees table to keep track of the wages but i use another table called hour to track the hours by day by empolyee and therefore link to the empolyee table and calculate their wages pretty easily. And a cost_record table to keep track of the cost of fixing boats and also link each item to the worker who fixed them in order to decide further promotion on empolyees and other stuff.
   The schema of the new table looks like this:
