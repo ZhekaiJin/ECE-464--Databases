@@ -140,16 +140,16 @@ excluding those boats that have never been reserved (list the id and the name).
 
 
 
-[query1]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
-[query2]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
-[query3]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
-[query4]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
-[query5]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
-[query6]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
-[query7]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
-[schema_3]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
-[bi_weekly_payment]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
-[profit_per_day]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
+[query1]: images/query1.png "Logo Title Text 2"
+[query2]: images/query2.png "Logo Title Text 2"
+[query3]: images/query3.png "Logo Title Text 2"
+[query4]: images/query4.png "Logo Title Text 2"
+[query5]: images/query5.png "Logo Title Text 2"
+[query6]: images/query6.png "Logo Title Text 2"
+[query7]: images/query7.png "Logo Title Text 2"
+[schema_3]: images/schema.png  "Logo Title Text 2"
+[bi_weekly_payment]:  images/test1.png  "Title Text 2"
+[profit_per_day]: images/test2.png "Logo Title Text 2"
 
 
 
