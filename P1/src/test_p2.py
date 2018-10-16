@@ -1,5 +1,5 @@
 from base import Session, engine, Base
-from sqlalchemy import Column, String, Integer, Date, MetaData, Table
+from sqlalchemy import Column, String, Integer
 
 
 class Boat(Base):

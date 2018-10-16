@@ -1,5 +1,4 @@
-from base import Session, engine, Base
-from sqlalchemy import Column, String, Integer, Date, MetaData, Table
+from base import engine
 
 #query for bi weekly wage report
 def get_wages():
