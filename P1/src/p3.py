@@ -38,7 +38,7 @@ cost_record = Table('cost_record', metadata,
              Column('cost', Integer),
              Column('day', Date))
 
-# ORM representation here but for easiness of query I just use the Table way
+# ORM representation here but for easiness of insertion I just use the Table way
 # class Employees(Base):
 #     __tablename__ = 'employees'
 #
