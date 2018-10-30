@@ -38,7 +38,20 @@ cost_record = Table('cost_record', metadata,
              Column('cost', Integer),
              Column('day', Date))
 
-
+# ORM representation here but for easiness of query I just use the Table way
+# class Employees(Base):
+#     __tablename__ = 'employees'
+#
+#     Column('eid', Integer, primary_key=True)
+#     Column('ename', String(20))
+#     Column('salary', Integer)
+#
+# class Hours(Base):
+#     __tablename__ = 'hours'
+#
+#     Column('day', Date, primary_key=True)
+#     Column('employees_eid', Integer, ForeignKey('employees.eid'), primary_key=True)
+#     Column('hours', Integer)
 
 if __name__ == '__main__':
     #clear and create the schema

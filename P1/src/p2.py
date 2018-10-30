@@ -1,51 +1,75 @@
-from sqlalchemy import Column, String, Integer, Date, MetaData, Table
-from base import Base, engine
+import pytest
+from sqlalchemy import Column, String, Integer, Date, MetaData, ForeignKey, desc, func
+from base import Base, engine, Session
 
+
+#################### ORM ########################
 metadata = MetaData()
 
-reserve = Table('reserves', metadata,
-        Column('sid', Integer, primary_key=True),
-        Column('bid', Integer, primary_key=True),
-        Column('day', Date, primary_key=True),
-)
+class Boats(Base):
+    __tablename__ = 'boats'
 
-sailors = Table('sailors', metadata,
-        Column('sid', Integer, primary_key=True),
-        Column('sname', String(30)),
-        Column('rating', Integer),
-        Column('age', Integer),
-)
+    bid = Column(Integer, primary_key=True)
+    bname = Column(String)
+    color = Column(String)
+    length = Column(Integer)
 
-boats = Table('boats', metadata,
-        Column('bid', Integer, primary_key=True),
-        Column('bname', String(20)),
-        Column('color', String(10)),
-        Column('length', Integer),
-)
+class Sailors(Base):
+    __tablename__ = 'sailors'
 
+    sid = Column(Integer, primary_key=True)
+    sname = Column(String)
+    rating = Column(Integer)
+    age = Column(Integer)
 
+class Reserves(Base):
+    __tablename__ = 'reserves'
 
-if __name__ == '__main__':
-    #clear and create the schema
-    metadata.drop_all(engine)
-    metadata.create_all(engine)
-    #insert with raw SQL lines
+    sid = Column(Integer, ForeignKey('sailors.sid'), primary_key=True)
+    bid = Column(Integer, ForeignKey('boats.bid'), primary_key=True)
+    day = Column(Date, primary_key=True)
+
+#################### TEST ########################
+def custom_assert(raw_query, api_query):
+    #convert ResultProxy result from excute() to list to compare with Query object
+    raw_list = []
+    api_list = []
     with engine.connect() as conn:
-        with open('../input.txt', 'r') as lines:
-            for line in lines:
-                line = line.strip('\n')
-                conn.execute(line)
+        result = conn.execute(raw_query)
+        for x in result:
+            raw_list.append(x)
+    #print(raw_list)
+    for x in api_query:
+        api_list.append(x)
+    #print(api_list)
+    assert raw_list == api_list
 
-    """ Another way to import instead of using raw SQL lines """
-    # with engine.connect() as conn:
-    #     conn.execute(sailors.insert(), [
-    #         {'sid': 22, 'sname': 'dusting','rating': 7, 'age': 45.0},
-    #         {'sid': 29, 'sname': 'brutus','rating': 1, 'age': 33.0},
-    #         {'sid': 31, 'sname': 'lubber','rating': 8, 'age': 55.5},
-    #         {'sid': 32, 'sname': 'andy','rating': 8, 'age': 25.5},
-    #         {'sid': 58, 'sname': 'rusty','rating': 10, 'age': 35.0},
-    #         {'sid': 64, 'sname': 'horatio','rating': 7, 'age': 16.0},
-    #         {'sid': 71, 'sname': 'zorba','rating': 10, 'age': 35.0},
-    #         {'sid': 74, 'sname': 'horatio','rating': 9, 'age': 25.5},
-    #     ])
+session = Session()
 
+
+def test_query5():
+    api_q5 = session.query(Reserves.bid, func.count('*').label('c')).group_by(Reserves.bid).order_by(desc('c')).limit(1)
+    raw_q5 = "select bid, res.c from (select bid, count(*) as c from reserves group by bid order by c desc limit 1) as res;"
+    custom_assert(raw_q5, api_q5)
+
+
+def test_query6():
+    query1 = session.query(Boats.bid).filter(Boats.color == "red")
+    query2 = session.query(Reserves.sid).filter(Reserves.bid.in_(query1))
+    query3 = session.query(Sailors.sname).filter(Sailors.sid.notin_(query2))
+    raw_q6 = "select s.sname from sailors s where s.sid not in (select r.sid from reserves r where r.bid in (select b.bid from boats b where b.color = 'red'));"
+    custom_assert (raw_q6, query3)
+
+
+def test_query7():
+    query_7 = session.query(func.avg(Sailors.age)).filter(Sailors.rating == 10).all()
+    raw_q7 = "SELECT avg(s.age) from sailors s where s.rating = 10;"
+    custom_assert (raw_q7,query_7)
+
+
+if  __name__ == "__main__":
+    test_query5()
+    test_query6()
+    test_query7()
+    session.commit()
+    session.close()
