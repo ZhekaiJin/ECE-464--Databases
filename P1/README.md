@@ -20,10 +20,9 @@ Experiment with SQL and Sqlalchemy a little bit.
  HAVING COUNT(*) >= ALL (SELECT COUNT(*) FROM reserves ra 
  WHERE ra.bid = b.bid GROUP BY ra.sid) ORDER BY b.bname, s.sname;
  ```
- <figure>
- 	<img src="images/query1.png" alt="my alt text"/>
- 	<figcaption>Output for query 1</figcaption>
- </figure>
+  <p align="center">
+  <img src="images/query1.png">
+  </p>
 
 * Query 2
 
@@ -35,10 +34,9 @@ excluding those boats that have never been reserved (list the id and the name).
   from boats b JOIN reserves r ON b.bid = r.bid 
   group by b.bid, b.bname ORDER BY b.bid;
   ```
-  <figure>
-  	<img src="images/query2.png" alt="my alt text"/>
-  	<figcaption>Output for query 2</figcaption>
-  </figure>
+  <p align="center">
+  <img src="images/query2.png">
+  </p>
 
 * Query 3
 
@@ -50,10 +48,9 @@ excluding those boats that have never been reserved (list the id and the name).
   AND NOT EXISTS (SELECT * FROM reserves r 
   WHERE r.sid = s.sid AND r.bid = b.bid));
   ```
-  <figure>
-  	<img src="images/query3.png" alt="my alt text"/>
-  	<figcaption>Output for query 3</figcaption>
-  </figure>
+  <p align="center">
+  <img src="images/query3.png">
+  </p>
 
 * Query 4
 
@@ -64,10 +61,9 @@ excluding those boats that have never been reserved (list the id and the name).
   (SELECT b.color FROM reserves r JOIN boats b ON r.bid=b.bid 
   WHERE r.sid = s.sid);
   ```
-  <figure>
-  	<img src="images/query4.png" alt="my alt text"/>
-  	<figcaption>Output for query 4</figcaption>
-  </figure>
+  <p align="center">
+  <img src="images/query4.png">
+  </p>
   
 * Query 5
 
@@ -77,10 +73,9 @@ excluding those boats that have never been reserved (list the id and the name).
   SELECT bid, count(bid) as NUMBER_OF_RESERVATIONS FROM reserves 
   GROUP BY bid ORDER BY NUMBER_OF_RESERVATIONS DESC LIMIT 1;
   ```
-  <figure>
-  	<img src="images/query5.png" alt="my alt text"/>
-  	<figcaption>Output for query 5</figcaption>
-  </figure>
+  <p align="center">
+  <img src="images/query5.png">
+  </p>
   
 
  * Query 6
@@ -92,8 +87,10 @@ excluding those boats that have never been reserved (list the id and the name).
   (SELECT r.sid FROM reserves r JOIN boats b ON r.bid=b.bid 
   WHERE b.color='red');  
   ```
- Output
-![alt text][query6]
+  <p align="center">
+  <img src="images/query6.png">
+  </p>
+
 
 * Query 7
   
@@ -102,67 +99,53 @@ excluding those boats that have never been reserved (list the id and the name).
   ```sql
   SELECT avg(s.age) from sailors s where s.rating = 10;
   ```
- Output
-![alt text][query7]
+  <p align="center">
+  <img src="images/query7.png">
+  </p>
+
 
 
 ## Part 2
 
 * [p2](src/p2.py)
-* [test](src/test_p2.py)
+* [test](src/p2.py)
 
 
 ## Part 3
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expanding from the first primitive database, in order to track the revenue and therefore profits, I add the column cost (for the sailors) in the reserves table to track the profits by day or by any specfic period. 
 
-  Expanding from the first primitive database, in order to track the revenue and therefore profits, I add the column cost[for the sailors] in the reserves table to track the profits by day or by any specfic period. 
-  Also, I added the empolyees table to keep track of the wages but i use another table called hour to track the hours by day by empolyee and therefore link to the empolyee table and calculate their wages pretty easily. And a cost_record table to keep track of the cost of fixing boats and also link each item to the worker who fixed them in order to decide further promotion on empolyees and other stuff.
-  The schema of the new table looks like this:
-![alt text][schema_3]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Also, I added the empolyees table to keep track of the wages but i use another table called hour to track the hours by day by empolyee and therefore link to the empolyee table and calculate their wages pretty easily. And a cost_record table to keep track of the cost of fixing boats and also link each item to the worker who fixed them in order to decide further promotion on empolyees and other stuff.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The schema of the new table looks like this:
+  <p align="center">
+  <img src="images/schema.png">
+  </p>
   
   * [p3](src/p3.py)
   * [test](src/test_p3.py)
 
-* bi weekly payment report
+* Bi-Weekly Payment Report
 
 	```sql
 	SELECT employees.ename,employees.salary * 
 	hours.hours AS Wages FROM hours JOIN employees ON 	employees.eid=hours.employees_eid 
 	WHERE day >= '1998/10/9' AND day <= '1998/10/23';
   	```
+  <p align="center">
+  <img src="images/test1.png">
+  </p>
 
-![alt text][bi_weekly_payment]
 
-* profit manager
+* Profit Manager
 
 	```sql
 	SELECT r.bid, SUM(r.cost) - SUM(c.cost) AS profit 
 	from cost_record c JOIN reserves r ON c.boat_id=r.bid 
 	WHERE r.day='1998/10/10' GROUP BY r.bid;
 	```
-
-
-![alt text][profit_per_day]
-
-
-  
-  
-
-
-
-
-
-
-
-[query1]: images/query1.png "Logo Title Text 2"
-[query2]: images/query2.png "Logo Title Text 2"
-[query3]: images/query3.png "Logo Title Text 2"
-[query4]: images/query4.png "Logo Title Text 2"
-[query5]: images/query5.png "Logo Title Text 2"
-[query6]: images/query6.png "Logo Title Text 2"
-[query7]: images/query7.png "Logo Title Text 2"
-[schema_3]: images/schema.png  "Logo Title Text 2"
-[bi_weekly_payment]:  images/test1.png  "Title Text 2"
-[profit_per_day]: images/test2.png "Logo Title Text 2"
+  <p align="center">
+  <img src="images/test2.png">
+  </p>
 
 
 
