@@ -20,8 +20,10 @@ JOIN sailors s ON s.sid = r.sid GROUP BY b.bid, b.bname, s.sid, s.sname
 HAVING COUNT(*) >= ALL (SELECT COUNT(*) FROM reserves ra 
 WHERE ra.bid = b.bid GROUP BY ra.sid) ORDER BY b.bname, s.sname;
 ``` 
-Output
-![alt text][query1]
+<figure>
+  <img src="images/query1.png" alt="my alt text"/>
+  <figcaption>Output for query 1</figcaption>
+</figure>
 
 * Query 2
 
@@ -33,8 +35,10 @@ excluding those boats that have never been reserved (list the id and the name).
   from boats b JOIN reserves r ON b.bid = r.bid 
   group by b.bid, b.bname ORDER BY b.bid;
   ```
- Output
-![alt text][query2] 
+<figure>
+  <img src="images/query2.png" alt="my alt text"/>
+  <figcaption>Output for query 2</figcaption>
+</figure>
 
 * Query 3
 
