@@ -14,16 +14,16 @@ Experiment with SQL and Sqlalchemy a little bit.
  Select, for each boat, the sailor who made the highest number of reservations for that boat.
  
  ```sql
-SELECT DISTINCT b.bname, s.sname, COUNT(*) 
-FROM boats b JOIN reserves r ON b.bid = r.bid 
-JOIN sailors s ON s.sid = r.sid GROUP BY b.bid, b.bname, s.sid, s.sname 
-HAVING COUNT(*) >= ALL (SELECT COUNT(*) FROM reserves ra 
-WHERE ra.bid = b.bid GROUP BY ra.sid) ORDER BY b.bname, s.sname;
-``` 
-<figure>
-  <img src="images/query1.png" alt="my alt text"/>
-  <figcaption>Output for query 1</figcaption>
-</figure>
+ SELECT DISTINCT b.bname, s.sname, COUNT(*) 
+ FROM boats b JOIN reserves r ON b.bid = r.bid 
+ JOIN sailors s ON s.sid = r.sid GROUP BY b.bid, b.bname, s.sid, s.sname 
+ HAVING COUNT(*) >= ALL (SELECT COUNT(*) FROM reserves ra 
+ WHERE ra.bid = b.bid GROUP BY ra.sid) ORDER BY b.bname, s.sname;
+ ```
+ <figure>
+ 	<img src="images/query1.png" alt="my alt text"/>
+ 	<figcaption>Output for query 1</figcaption>
+ </figure>
 
 * Query 2
 
@@ -35,14 +35,14 @@ excluding those boats that have never been reserved (list the id and the name).
   from boats b JOIN reserves r ON b.bid = r.bid 
   group by b.bid, b.bname ORDER BY b.bid;
   ```
-<figure>
-  <img src="images/query2.png" alt="my alt text"/>
-  <figcaption>Output for query 2</figcaption>
-</figure>
+  <figure>
+  	<img src="images/query2.png" alt="my alt text"/>
+  	<figcaption>Output for query 2</figcaption>
+  </figure>
 
 * Query 3
 
-	List those sailors who have reserved every red boat.
+  List those sailors who have reserved every red boat.
   
   ```sql
   SELECT s.sname FROM sailors s 
@@ -50,31 +50,38 @@ excluding those boats that have never been reserved (list the id and the name).
   AND NOT EXISTS (SELECT * FROM reserves r 
   WHERE r.sid = s.sid AND r.bid = b.bid));
   ```
- Output
-![alt text][query3] 
+  <figure>
+  	<img src="images/query3.png" alt="my alt text"/>
+  	<figcaption>Output for query 3</figcaption>
+  </figure>
 
 * Query 4
 
-	List those sailors who have reserved only red boat.
+  List those sailors who have reserved only red boat.
 	  
   ```sql
   SELECT sname FROM sailors s WHERE 'red'= ALL 
   (SELECT b.color FROM reserves r JOIN boats b ON r.bid=b.bid 
   WHERE r.sid = s.sid);
   ```
- Output
-![alt text][query4]
-
+  <figure>
+  	<img src="images/query4.png" alt="my alt text"/>
+  	<figcaption>Output for query 4</figcaption>
+  </figure>
+  
 * Query 5
 
-	For which boat are there there the most reservations?
+  For which boat are there there the most reservations?
 	  
   ```sql
   SELECT bid, count(bid) as NUMBER_OF_RESERVATIONS FROM reserves 
   GROUP BY bid ORDER BY NUMBER_OF_RESERVATIONS DESC LIMIT 1;
   ```
- Output
-![alt text][query5]
+  <figure>
+  	<img src="images/query5.png" alt="my alt text"/>
+  	<figcaption>Output for query 5</figcaption>
+  </figure>
+  
 
  * Query 6
 
